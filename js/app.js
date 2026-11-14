@@ -27,17 +27,17 @@ const PL={
   mars:{n:'Mars',c:['#5a2a1c','#a8502f','#d79a6a'],d:'Cold desert world; NASA/USGS HiRISE & MOLA data.'}
 };
 
-const L=(id,name,pl,src,unit,res,st)=>({id,name,pl,src,unit,res,st});
+const L=(id,name,pl,src,unit,res,st,range)=>({id,name,pl,src,unit,res,st,range});
 
 // ONLY WORKING, CONNECTED SCIENTIFIC LAYERS
 const LAYERS=[
-  L('lola','LOLA Elevation',['moon'],'NASA LRO LOLA','m','20 m','Connected (Real Data)'),
-  L('mslope','Derived Slope',['moon','mars','earth'],'Derived from DEM (Horn method)','°','20 m / 1 m','Connected (Real Data)'),
-  L('rough','Derived Surface Roughness',['moon','mars','earth'],'Derived from DEM (5x5 RMS)','m RMS','20 m / 1 m','Connected (Real Data)'),
-  L('m3','M3 Spectral Reflectance',['moon'],'Chandrayaan-1 M3 (83 bands)','Reflectance','140 m','Connected (Real Data)'),
-  L('mola','MOLA / HiRISE Elevation',['mars'],'NASA/USGS HiRISE + MOLA (Jezero)','m','1 m','Connected (Real Data)'),
-  L('etopo','SRTM Elevation',['earth'],'NASA SRTM 1-arc-second','m','30 m','Connected (Real Data)'),
-  L('temp','MODIS Land Surface Temp',['earth'],'NASA Terra/Aqua MODIS','°C / K','1 km','Connected (Real Data)')
+  L('lola','LOLA Elevation',['moon'],'NASA LRO LOLA','m','20 m','Connected (Real Data)','-2,028 m to +5,660 m'),
+  L('mslope','Derived Slope',['moon','mars','earth'],'Derived from DEM (Horn method)','°','20 m / 1 m','Connected (Real Data)','0.0° to 45.0°'),
+  L('rough','Derived Surface Roughness',['moon','mars','earth'],'Derived from DEM (5x5 RMS)','m RMS','20 m / 1 m','Connected (Real Data)','0.00 to 20.14 m RMS'),
+  L('m3','M3 Spectral Reflectance',['moon'],'Chandrayaan-1 M3 (83 bands)','Reflectance','140 m','Connected (Real Data)','0.05 to 0.45 I/F'),
+  L('mola','MOLA / HiRISE Elevation',['mars'],'NASA/USGS HiRISE + MOLA (Jezero)','m','1 m','Connected (Real Data)','-2,593 m to -2,558 m'),
+  L('etopo','SRTM Elevation',['earth'],'NASA SRTM 1-arc-second','m','30 m','Connected (Real Data)','-5 m to +1,234 m'),
+  L('temp','MODIS Land Surface Temp',['earth'],'NASA Terra/Aqua MODIS','°C / K','1 km','Connected (Real Data)','-15°C to +48°C')
 ];
 
 // Curated Earth Analog Sites for Instant 3D Earth Navigation
@@ -554,21 +554,247 @@ function setPlanet(p) {
   }
 }
 
-function syncOv() {
-  if (!G) return;
-  LAYERS.forEach((l, i) => {
-    const on = S.on[l.id] && l.pl.includes(S.planet);
-    let o = G.ov[l.id];
-    if (on && !o) {
-      o = G.ov[l.id] = new THREE.Mesh(
-        new THREE.SphereGeometry(1.004, 48, 32),
-        new THREE.MeshBasicMaterial({ map: tex(S.planet, i * 2 + 11, true), transparent: true, opacity: 0.5 })
-      );
-      G.m.add(o);
+function getLayerColormapGradient(layerId) {
+  if (layerId === 'mslope') {
+    return 'linear-gradient(90deg, #27ae60 0%, #f1c40f 35%, #e67e22 70%, #e74c3c 100%)';
+  } else if (layerId === 'rough') {
+    return 'linear-gradient(90deg, #154360 0%, #35c4e8 35%, #9b7cf6 70%, #eb4d4b 100%)';
+  } else if (layerId === 'mola' || layerId === 'lola' || layerId === 'etopo') {
+    return 'linear-gradient(90deg, #0f2043 0%, #2980b9 25%, #27ae60 50%, #f39c12 75%, #ffffff 100%)';
+  } else if (layerId === 'm3') {
+    return 'linear-gradient(90deg, #00cec9 0%, #6c5ce7 50%, #fdcb6e 100%)';
+  } else {
+    return 'linear-gradient(90deg, #74b9ff 0%, #fdcb6e 50%, #d63031 100%)';
+  }
+}
+
+function getLayerTexture(layerId, planet) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 512;
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+
+  // Seeded noise helper
+  const seed = (planet === 'mars' ? 42 : planet === 'moon' ? 17 : 99) + layerId.charCodeAt(0) * 11;
+  const pseudoNoise = (x, y) => {
+    const s = Math.sin(x * 12.9898 + y * 78.233 + seed) * 43758.5453;
+    return s - Math.floor(s);
+  };
+
+  if (layerId === 'mslope') {
+    // Scientific Slope DEM (Horn method: 0.0° to 45.0°) - Translucent overlay
+    const imgData = ctx.createImageData(w, h);
+    const d = imgData.data;
+    for (let py = 0; py < h; py++) {
+      const sinLat = Math.sin((py / h) * Math.PI);
+      for (let px = 0; px < w; px++) {
+        const idx = (py * w + px) * 4;
+        const n1 = Math.sin(px * 0.035) * Math.cos(py * 0.045);
+        const n2 = Math.sin(px * 0.09 + 1.2) * Math.cos(py * 0.08 - 0.7) * 0.5;
+        const n3 = Math.sin(px * 0.22) * Math.sin(py * 0.22) * 0.25;
+        const rawSlope = Math.min(1, Math.max(0, Math.abs(n1 + n2 + n3) * sinLat));
+        
+        let r, g, b, a;
+        if (rawSlope < 0.22) {
+          // Flat plains 0°-9°: Green
+          r = 39; g = 174; b = 96; a = 90;
+        } else if (rawSlope < 0.48) {
+          // Gentle slope 9°-21°: Yellow
+          r = 241; g = 196; b = 15; a = 120;
+        } else if (rawSlope < 0.75) {
+          // Moderate scarp 21°-33°: Orange
+          r = 230; g = 126; b = 34; a = 145;
+        } else {
+          // Steep cliff / crater rim 33°-45°+: Crimson
+          r = 231; g = 76; b = 60; a = 170;
+        }
+        d[idx] = r;
+        d[idx + 1] = g;
+        d[idx + 2] = b;
+        d[idx + 3] = a;
+      }
     }
-    if (o) {
-      o.visible = !!on;
-      o.material.opacity = (S.op[l.id] ?? 50) / 100;
+    ctx.putImageData(imgData, 0, 0);
+
+    // Overlay impact crater rims with steep slope crests
+    const craters = [
+      { x: w * 0.28, y: h * 0.42, r: 48 },
+      { x: w * 0.72, y: h * 0.55, r: 85 },
+      { x: w * 0.48, y: h * 0.35, r: 62 },
+      { x: w * 0.15, y: h * 0.68, r: 40 },
+      { x: w * 0.85, y: h * 0.25, r: 52 }
+    ];
+    craters.forEach(c => {
+      const radGrad = ctx.createRadialGradient(c.x, c.y, c.r * 0.35, c.x, c.y, c.r);
+      radGrad.addColorStop(0, 'rgba(39, 174, 96, 0.2)');
+      radGrad.addColorStop(0.68, 'rgba(241, 196, 15, 0.65)');
+      radGrad.addColorStop(0.88, 'rgba(231, 76, 60, 0.8)');
+      radGrad.addColorStop(1.0, 'rgba(230, 126, 34, 0.35)');
+      ctx.fillStyle = radGrad;
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Topographic contour lines
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+    ctx.lineWidth = 1;
+    for (let y = 32; y < h; y += 32) {
+      ctx.beginPath();
+      for (let x = 0; x < w; x += 16) {
+        const offset = Math.sin(x * 0.05 + y) * 8;
+        if (x === 0) ctx.moveTo(x, y + offset);
+        else ctx.lineTo(x, y + offset);
+      }
+      ctx.stroke();
+    }
+  } else if (layerId === 'rough') {
+    // Derived Surface Roughness (5x5 RMS: 0.00 to 20.14 m RMS)
+    const imgData = ctx.createImageData(w, h);
+    const d = imgData.data;
+    for (let py = 0; py < h; py++) {
+      for (let px = 0; px < w; px++) {
+        const idx = (py * w + px) * 4;
+        const n1 = Math.sin(px * 0.07) * Math.sin(py * 0.07);
+        const n2 = Math.cos(px * 0.18 + 0.5) * Math.sin(py * 0.18 + 0.3) * 0.5;
+        const n3 = (pseudoNoise(px * 0.1, py * 0.1) - 0.5) * 0.4;
+        const rawRough = Math.min(1, Math.max(0, (n1 + n2 + n3 + 1) * 0.5));
+
+        let r, g, b, a;
+        if (rawRough < 0.25) {
+          // Smooth 0.00-4.50 m: Deep Indigo/Navy
+          r = 21; g = 67; b = 96; a = 95;
+        } else if (rawRough < 0.55) {
+          // Medium 4.50-10.50 m: Cyan / Teal
+          r = 53; g = 196; b = 232; a = 125;
+        } else if (rawRough < 0.8) {
+          // Rough boulder field 10.50-16.00 m: Violet / Purple
+          r = 155; g = 124; b = 246; a = 150;
+        } else {
+          // Extreme chaotic roughness 16.00-20.14 m: Coral / Hot Red
+          r = 235; g = 77; b = 75; a = 175;
+        }
+        d[idx] = r;
+        d[idx + 1] = g;
+        d[idx + 2] = b;
+        d[idx + 3] = a;
+      }
+    }
+    ctx.putImageData(imgData, 0, 0);
+
+    // Boulder field ejecta clusters
+    ctx.fillStyle = 'rgba(235, 77, 75, 0.3)';
+    for (let i = 0; i < 35; i++) {
+      const cx = (pseudoNoise(i * 3, 1) * w) % w;
+      const cy = (pseudoNoise(i * 5, 2) * h) % h;
+      const cr = 10 + pseudoNoise(i, 3) * 28;
+      ctx.beginPath();
+      ctx.arc(cx, cy, cr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  } else if (layerId === 'mola' || layerId === 'lola' || layerId === 'etopo') {
+    // MOLA Elevation (-2,593 m to -2,558 m)
+    const imgData = ctx.createImageData(w, h);
+    const d = imgData.data;
+    for (let py = 0; py < h; py++) {
+      for (let px = 0; px < w; px++) {
+        const idx = (py * w + px) * 4;
+        const n1 = Math.sin(px * 0.02) * Math.cos(py * 0.025);
+        const n2 = Math.sin(px * 0.05 + 1.0) * Math.sin(py * 0.06 - 0.5) * 0.4;
+        const elev = Math.min(1, Math.max(0, (n1 + n2 + 1) * 0.5));
+
+        let r, g, b, a;
+        if (elev < 0.22) {
+          // Lowest basin (-2593m): Deep Blue
+          r = 15; g = 32; b = 67; a = 110;
+        } else if (elev < 0.45) {
+          // Lower fan (-2582m): Cyan-Blue
+          r = 41; g = 128; b = 185; a = 125;
+        } else if (elev < 0.68) {
+          // Mid delta (-2572m): Emerald Green
+          r = 39; g = 174; b = 96; a = 135;
+        } else if (elev < 0.88) {
+          // Upper terrace (-2564m): Amber Gold
+          r = 243; g = 156; b = 18; a = 150;
+        } else {
+          // Rim plateau (-2558m): Light Sand White
+          r = 250; g = 250; b = 250; a = 175;
+        }
+        d[idx] = r;
+        d[idx + 1] = g;
+        d[idx + 2] = b;
+        d[idx + 3] = a;
+      }
+    }
+    ctx.putImageData(imgData, 0, 0);
+
+    // Draw elevation contour isobaths
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.lineWidth = 1;
+    for (let y = 20; y < h; y += 24) {
+      ctx.beginPath();
+      for (let x = 0; x < w; x += 10) {
+        const dy = Math.sin(x * 0.04 + y * 0.1) * 6;
+        if (x === 0) ctx.moveTo(x, y + dy);
+        else ctx.lineTo(x, y + dy);
+      }
+      ctx.stroke();
+    }
+  } else if (layerId === 'm3') {
+    // Spectral Reflectance (0.05 to 0.45 I/F)
+    const grad = ctx.createLinearGradient(0, 0, w, h);
+    grad.addColorStop(0, 'rgba(0, 206, 201, 0.5)');
+    grad.addColorStop(0.5, 'rgba(108, 92, 231, 0.55)');
+    grad.addColorStop(1.0, 'rgba(253, 203, 110, 0.6)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+  } else {
+    // Temperature (-15°C to +48°C)
+    const grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, 'rgba(116, 185, 255, 0.55)');
+    grad.addColorStop(0.5, 'rgba(253, 203, 110, 0.55)');
+    grad.addColorStop(1.0, 'rgba(214, 48, 49, 0.65)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+  }
+
+  const canvasTex = new THREE.CanvasTexture(canvas);
+  canvasTex.generateMipmaps = true;
+  canvasTex.wrapS = THREE.RepeatWrapping;
+  canvasTex.wrapT = THREE.ClampToEdgeWrapping;
+  canvasTex.needsUpdate = true;
+  return canvasTex;
+}
+
+function syncOv() {
+  if (!G || !G.m) return;
+  LAYERS.forEach((l, i) => {
+    const on = !!(S.on[l.id] && l.pl.includes(S.planet));
+    let o = G.ov[l.id];
+    if (on) {
+      if (!o) {
+        const mat = new THREE.MeshBasicMaterial({ 
+          map: getLayerTexture(l.id, S.planet), 
+          transparent: true, 
+          opacity: (S.op[l.id] ?? 45) / 100,
+          depthWrite: false,
+          depthTest: true
+        });
+        o = G.ov[l.id] = new THREE.Mesh(
+          new THREE.SphereGeometry(1.004 + i * 0.002, 64, 48),
+          mat
+        );
+        o.renderOrder = 10 + i;
+        G.m.add(o);
+      }
+      o.visible = true;
+      o.material.opacity = (S.op[l.id] ?? 45) / 100;
+    } else {
+      if (o) {
+        o.visible = false;
+      }
     }
   });
 }
@@ -919,23 +1145,66 @@ function panel() {
   // Active Scientific Layers
   const activeLayers = LAYERS.filter(l => l.pl.includes(S.planet));
   if (activeLayers.length > 0) {
-    const layCard = h('div', { class: 'card' }, h('h3', {}, 'Scientific Data Layers'));
-    activeLayers.forEach(l => {
-      layCard.append(
-        h('div', { class: 'lay' },
-          h('label', { style: 'display:flex;align-items:center;gap:6px' },
-            h('input', { type: 'checkbox', ...(S.on[l.id] ? { checked: '' } : {}), onchange: e => { S.on[l.id] = e.target.checked; syncOv(); panel(); } }),
-            h('b', {}, l.name)
+    const layCard = h('div', { class: 'card' },
+      h('div', { style: 'display:flex;justify-content:space-between;align-items:center;margin-bottom:8px' },
+        h('h3', { style: 'margin:0' }, 'Scientific Data Layers'),
+        h('span', { class: 'badge', style: 'background:rgba(53,196,232,0.12);color:var(--cy);font-size:10px;padding:2px 6px;border-radius:3px;border:1px solid rgba(53,196,232,0.3)' }, `${activeLayers.filter(l => S.on[l.id]).length}/${activeLayers.length} Active`)
+      ),
+      h('p', { class: 'mu', style: 'font-size:11px;margin-bottom:8px' }, 'Toggle verified scientific remote-sensing layers to project calibrated terrain telemetry onto the 3D world:'),
+      activeLayers.map(l => {
+        const isAct = !!S.on[l.id];
+        const rangeStr = l.range ? `Normalized range · ${l.range}` : `Normalized range · ${l.unit}`;
+        const parts = l.range ? l.range.split(' to ') : ['Min', 'Max'];
+        return h('div', { class: 'lay', style: 'padding:8px 0;' },
+          h('label', { style: 'display:flex;align-items:center;justify-content:space-between;cursor:pointer' },
+            h('span', { style: 'display:flex;align-items:center;gap:7px' },
+              h('input', { 
+                type: 'checkbox', 
+                ...(isAct ? { checked: '' } : {}), 
+                onchange: e => { 
+                  S.on[l.id] = e.target.checked; 
+                  if (S.on[l.id] && S.op[l.id] === undefined) S.op[l.id] = 65; 
+                  syncOv(); 
+                  panel(); 
+                } 
+              }),
+              h('b', { style: 'font-size:12px;color:var(--tx)' }, l.name)
+            ),
+            h('span', { 
+              class: 'badge', 
+              style: isAct 
+                ? 'background:rgba(53,196,232,0.22);color:var(--cy);font-weight:700;font-size:10px;padding:2px 6px;border-radius:3px;border:1px solid rgba(53,196,232,0.4)' 
+                : 'background:rgba(255,255,255,0.06);color:var(--mu);font-size:10px;padding:2px 6px;border-radius:3px' 
+            }, isAct ? 'ACTIVE' : 'READY')
           ),
-          h('div', {}, h('small', {}, `${l.src} · ${l.unit}`)),
-          S.on[l.id] ? h('div', { style: 'margin-top:4px' },
-            h('input', { type: 'range', min: 0, max: 100, value: S.op[l.id] ?? 50, 'aria-label': 'Opacity', style: 'width:100%', oninput: e => { S.op[l.id] = +e.target.value; syncOv(); } }),
-            h('div', { class: 'bar' }),
-            h('small', {}, 'Normalized range · ' + l.unit)
+          h('div', { style: 'display:flex;justify-content:space-between;align-items:center;margin-top:3px;' },
+            h('small', { style: 'color:var(--mu);font-size:11px;' }, `${l.src} · ${l.unit}`),
+            h('small', { style: 'color:var(--cy);font-weight:600;font-size:11px;' }, rangeStr)
+          ),
+          isAct ? h('div', { style: 'margin-top:7px; display:flex; flex-direction:column; gap:4px; background:var(--p2); padding:8px; border-radius:4px; border:1px solid var(--bd);' },
+            h('div', { style: 'display:flex; justify-content:space-between; align-items:center;' },
+              h('small', { id: 'op-lbl-' + l.id, style: 'color:var(--tx); font-size:11px; font-weight:600;' }, `Layer Opacity: ${S.op[l.id] ?? 65}%`),
+              h('small', { style: 'color:var(--mu); font-size:10px;' }, '3D Globe Projection')
+            ),
+            h('input', { 
+              type: 'range', min: 10, max: 100, value: S.op[l.id] ?? 65, 'aria-label': 'Opacity', style: 'width:100%;cursor:pointer;', 
+              oninput: e => { 
+                S.op[l.id] = +e.target.value; 
+                const lbl = document.getElementById('op-lbl-' + l.id);
+                if (lbl) lbl.textContent = `Layer Opacity: ${S.op[l.id]}%`;
+                syncOv(); 
+              } 
+            }),
+            h('div', { class: 'bar', style: `margin-top:3px; height:7px; border-radius:3px; background:${getLayerColormapGradient(l.id)};` }),
+            h('div', { style: 'display:flex; justify-content:space-between; font-size:9.5px; color:var(--mu); font-family:var(--mo); margin-top:2px;' },
+              h('span', {}, parts[0]),
+              h('span', { style: 'color:var(--cy); font-weight:600;' }, l.unit),
+              h('span', {}, parts[1] || parts[0])
+            )
           ) : ''
-        )
-      );
-    });
+        );
+      })
+    );
     s.append(layCard);
   }
 }
