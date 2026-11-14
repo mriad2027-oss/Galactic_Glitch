@@ -1,5 +1,5 @@
 // ---------- Galactic Glitch: Configuration & State ----------
-const CFG={api:'https://convert-drive-deny-sends.trycloudflare.com/api/v1'};
+const CFG={api:'https://bruce-visibility-symbols-barbie.trycloudflare.com/api/v1'};
 const LS={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const S={
   planet:'moon',
@@ -1064,7 +1064,7 @@ async function runSearch(){
     showRes();
   }catch(e){
     S.res=null;r.innerHTML='';
-    r.append(h('div',{class:'card err'},'Backend error ('+esc(e.message)+'). Ensure FastAPI server is running on https://convert-drive-deny-sends.trycloudflare.com'));
+    r.append(h('div',{class:'card err'},'Backend error ('+esc(e.message)+'). Ensure FastAPI server is running on https://bruce-visibility-symbols-barbie.trycloudflare.com'));
   }
   if(b)b.disabled=false;
 }
