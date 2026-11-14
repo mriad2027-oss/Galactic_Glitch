@@ -1,0 +1,145 @@
+{
+  "pipeline_version": "1.0.0",
+  "processed_layers": [
+    {
+      "prefix": "moon_lola",
+      "planet": "moon",
+      "width": 1536,
+      "height": 4608,
+      "crs": "None",
+      "resolution_m": [
+        20.0,
+        20.0
+      ],
+      "stats": {
+        "elevation": {
+          "path": "D:\\Downloads\\terratwin\\data\\moon\\processed\\moon_lola_elevation.tif",
+          "min": -2028.862060546875,
+          "max": 5660.54248046875,
+          "mean": 1307.614990234375,
+          "std": 2026.811767578125,
+          "valid_pixel_pct": 100.0
+        },
+        "slope": {
+          "path": "D:\\Downloads\\terratwin\\data\\moon\\processed\\moon_lola_slope.tif",
+          "min": 0.0024046238977462053,
+          "max": 46.885276794433594,
+          "mean": 13.90673828125,
+          "std": 6.641336917877197,
+          "valid_pixel_pct": 100.0
+        },
+        "roughness": {
+          "path": "D:\\Downloads\\terratwin\\data\\moon\\processed\\moon_lola_roughness.tif",
+          "min": 0.14543436467647552,
+          "max": 20.13544464111328,
+          "mean": 7.106884002685547,
+          "std": 3.4904661178588867,
+          "valid_pixel_pct": 100.0
+        }
+      },
+      "provenance": "REAL_DERIVED (NASA LRO LOLA GSFC)"
+    },
+    {
+      "prefix": "mars_jezero",
+      "planet": "mars",
+      "width": 1024,
+      "height": 1024,
+      "crs": "ESRI:103885",
+      "resolution_m": [
+        1.0,
+        1.0
+      ],
+      "stats": {
+        "elevation": {
+          "path": "D:\\Downloads\\terratwin\\data\\mars\\processed\\mars_jezero_elevation.tif",
+          "min": -2592.682861328125,
+          "max": -2558.095947265625,
+          "mean": -2575.519287109375,
+          "std": 5.358911514282227,
+          "valid_pixel_pct": 100.0
+        },
+        "slope": {
+          "path": "D:\\Downloads\\terratwin\\data\\mars\\processed\\mars_jezero_slope.tif",
+          "min": 0.00349705689586699,
+          "max": 36.0903434753418,
+          "mean": 3.250500202178955,
+          "std": 2.4809744358062744,
+          "valid_pixel_pct": 100.0
+        },
+        "roughness": {
+          "path": "D:\\Downloads\\terratwin\\data\\mars\\processed\\mars_jezero_roughness.tif",
+          "min": 0.00298120966181159,
+          "max": 0.8260610103607178,
+          "mean": 0.0800362080335617,
+          "std": 0.058450985699892044,
+          "valid_pixel_pct": 100.0
+        }
+      },
+      "provenance": "REAL_DERIVED (NASA/USGS MRO HiRISE + MGS MOLA)"
+    },
+    {
+      "prefix": "earth_srtm",
+      "planet": "earth",
+      "width": 1983,
+      "height": 1587,
+      "crs": "EPSG:4283",
+      "resolution_m": [
+        509.5241509891938,
+        555.9746332227941
+      ],
+      "stats": {
+        "elevation": {
+          "path": "D:\\Downloads\\terratwin\\data\\earth\\processed\\earth_srtm_elevation.tif",
+          "min": -4.896822929382324,
+          "max": 1233.9049072265625,
+          "mean": 253.55604553222656,
+          "std": 141.6465301513672,
+          "valid_pixel_pct": 99.79
+        },
+        "slope": {
+          "path": "D:\\Downloads\\terratwin\\data\\earth\\processed\\earth_srtm_slope.tif",
+          "min": 0.0,
+          "max": 84.18079376220703,
+          "mean": 0.6045767068862915,
+          "std": 1.2760354280471802,
+          "valid_pixel_pct": 99.79
+        },
+        "roughness": {
+          "path": "D:\\Downloads\\terratwin\\data\\earth\\processed\\earth_srtm_roughness.tif",
+          "min": 0.0,
+          "max": 4898.48974609375,
+          "mean": 8.318526268005371,
+          "std": 47.43505859375,
+          "valid_pixel_pct": 99.79
+        }
+      },
+      "provenance": "REAL_DERIVED (NASA SRTM STS-99)"
+    },
+    {
+      "layer": "moon_m3_bullialdus",
+      "planet": "moon",
+      "instrument": "Chandrayaan-1 M3 Imaging Spectrometer",
+      "bands": 83,
+      "dimensions": [
+        304,
+        456
+      ],
+      "band_1_reflectance_range": [
+        0.013425080105662346,
+        0.191467747092247
+      ],
+      "band_83_reflectance_range": [
+        0.00905701145529747,
+        0.4657641053199768
+      ],
+      "provenance": "REAL_OBSERVATIONAL (ISRO/NASA Chandrayaan-1)",
+      "validation": "PASSED"
+    }
+  ],
+  "validation_status": "PASSED",
+  "scientific_integrity": {
+    "synthetic_data_excluded": true,
+    "provenance_checked": true,
+    "no_fabricated_fallbacks": true
+  }
+}

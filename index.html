@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Galactic Glitch — Earth Analog Discovery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="cinematic">
+
+<!-- ===== TOP NAV ===== -->
+<nav id="topnav">
+  <div class="nav-logo">
+    <div class="logo-icon">◈</div>
+    <div class="logo-text"><span class="logo-g">GALACTIC</span> GLITCH</div>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="#overview"  data-k="overview"  class="navl">Overview</a>
+    <a href="#explorer"  data-k="explorer"  class="navl">3D Explorer</a>
+    <a href="#analog"    data-k="analog"    class="navl">Analog Discovery</a>
+    <a href="#datasets"  data-k="datasets"  class="navl">Datasets</a>
+    <a href="#history"   data-k="history"   class="navl">History</a>
+    <a href="#saved"     data-k="saved"     class="navl">Saved</a>
+  </div>
+  <div class="nav-right">
+    <span class="tag" id="modeTag"></span>
+    <a href="#settings" class="nav-settings-btn">⚙ Settings</a>
+    <button id="menu" class="hamburger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- ===== MOBILE DRAWER NAV ===== -->
+<div id="navDrawer" class="nav-drawer">
+  <div class="drawer-header">
+    <div class="logo-text nav-drawer-logo"><span class="logo-g">GALACTIC</span> GLITCH</div>
+    <button id="drawerClose" class="drawer-close">✕</button>
+  </div>
+  <div class="drawer-links" id="drawerLinks"></div>
+  <div id="navStatus" class="drawer-status"></div>
+</div>
+<div id="navOverlay" class="nav-overlay"></div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main id="main"></main>
+
+<!-- ===== TOAST ===== -->
+<div id="toast"></div>
+
+<script src="vendor/three.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+[
+  {
+    "id": "hist-shackleton-polar",
+    "planet": "moon",
+    "lat": -89.9,
+    "lon": 0.0,
+    "target_name": "Shackleton Crater (Lunar South Pole)",
+    "features": [
+      "Elevation",
+      "Slope",
+      "Roughness",
+      "Temperature"
+    ],
+    "top_result": "McMurdo Dry Valleys, Antarctica",
+    "top_match_pct": 93,
+    "model_accuracy": 95.4,
+    "result_count": 7,
+    "searched_at": "2026-11-14T00:25:20.186560+00:00"
+  },
+  {
+    "id": "hist-jezero-delta",
+    "planet": "mars",
+    "lat": 18.38,
+    "lon": 77.58,
+    "target_name": "Perseverance Landing Site (Jezero Crater Delta)",
+    "features": [
+      "Elevation",
+      "Slope",
+      "Roughness",
+      "Temperature"
+    ],
+    "top_result": "Atacama Desert, Chile",
+    "top_match_pct": 96,
+    "model_accuracy": 96.8,
+    "result_count": 7,
+    "searched_at": "2026-11-13T21:25:20.186608+00:00"
+  },
+  {
+    "id": "hist-bullialdus-m3",
+    "planet": "moon",
+    "lat": -20.7,
+    "lon": -22.2,
+    "target_name": "Bullialdus Crater (Chandrayaan-1 M3)",
+    "features": [
+      "Elevation",
+      "Slope",
+      "Roughness",
+      "Temperature"
+    ],
+    "top_result": "Askja Highlands, Iceland",
+    "top_match_pct": 91,
+    "model_accuracy": 94.2,
+    "result_count": 7,
+    "searched_at": "2026-11-13T02:25:20.186623+00:00"
+  },
+  {
+    "id": "31a6b273-583",
+    "planet": "moon",
+    "lat": 19.36846262527048,
+    "lon": 41.269818088995386,
+    "features": [
+      "Elevation",
+      "Slope",
+      "Roughness",
+      "Temperature"
+    ],
+    "top_result": "Meteor Crater (Barringer), Arizona, USA",
+    "top_match_pct": 57,
+    "model_accuracy": 93.5,
+    "result_count": 7,
+    "target_name": null,
+    "full_result": null,
+    "searched_at": "2026-11-14T02:28:27.524441+00:00"
+  }
+]

@@ -1,0 +1,244 @@
+[
+  {
+    "id": "moon_lola_20m",
+    "name": "NASA Lunar LOLA and LROC NAC Real Context",
+    "planet": "moon",
+    "instrument": "Lunar Reconnaissance Orbiter (LRO) - Lunar Orbiter Laser Altimeter (LOLA)",
+    "features": [
+      "Elevation"
+    ],
+    "unit": "m",
+    "resolution": "20 m/pixel",
+    "provenance": "REAL_DERIVED",
+    "license": "CC0: Public Domain",
+    "original_source": "NASA Goddard Space Flight Center (GSFC) Planetary Geodynamics Laboratory / LOLA Science Team (https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_20MPP_ADJ.TIF)",
+    "availability": "CONNECTED_REAL_DATA",
+    "processing_status": "READY_FOR_GEOSPATIAL_PIPELINE",
+    "files": [
+      "data/moon/raw/LOLA/lunar20_nac_common.tif",
+      "data/moon/raw/LOLA/lunar20_nac_common.tif.json"
+    ]
+  },
+  {
+    "id": "moon_southpole_finetune",
+    "name": "LunarSite South Pole Crater Fine-Tuning HDF5",
+    "planet": "moon",
+    "instrument": "LRO LOLA + Robbins Catalog",
+    "features": [
+      "Elevation",
+      "Crater Rims"
+    ],
+    "unit": "m",
+    "resolution": "118 m/pixel",
+    "provenance": "REAL_DERIVED",
+    "license": "CC0: Public Domain",
+    "original_source": "NASA LRO LOLA South Pole 118m/pixel Polar Stereographic DEM tiles (LDEM_80S_118M) + Robbins Lunar Crater Database",
+    "availability": "CONNECTED_REAL_DATA",
+    "processing_status": "READY_FOR_GEOSPATIAL_PIPELINE",
+    "files": [
+      "data/moon/raw/LOLA/southpole_finetune_118mpp.hdf5"
+    ]
+  },
+  {
+    "id": "moon_m3_mineralogy",
+    "name": "Lunar Water Discovery using Chandrayaan Data",
+    "planet": "moon",
+    "instrument": "Chandrayaan-1 Moon Mineralogy Mapper (M3) Imaging Spectrometer",
+    "features": [
+      "Mineralogy",
+      "Spectral Reflectance (83 bands)"
+    ],
+    "unit": "Reflectance factor (I/F)",
+    "resolution": "140 m/pixel",
+    "provenance": "REAL_OBSERVATIONAL",
+    "license": "CC0: Public Domain",
+    "original_source": "ISRO / NASA Chandrayaan-1 Moon Mineralogy Mapper (M3) calibrated spectral reflectance cube of Bullialdus Crater",
+    "availability": "CONNECTED_REAL_DATA",
+    "processing_status": "READY_FOR_GEOSPATIAL_PIPELINE",
+    "files": [
+      "data/moon/raw/M3/Bullialdus_m3_tiff.tif"
+    ]
+  },
+  {
+    "id": "mars_jezero_terrain",
+    "name": "Mars Terrain AI | Jezero Hazard & Routing Data",
+    "planet": "mars",
+    "instrument": "MRO HiRISE + MGS MOLA",
+    "features": [
+      "Elevation",
+      "Slope",
+      "Surface Roughness"
+    ],
+    "unit": "m (elevation, roughness), degrees (slope)",
+    "resolution": "1 m/pixel DTM",
+    "provenance": "REAL_DERIVED",
+    "license": "Unknown (NASA/USGS Open Data derived)",
+    "original_source": "NASA/USGS Mars Reconnaissance Orbiter (MRO) HiRISE Digital Terrain Model (DTM) aligned with MGS MOLA elevation datum",
+    "availability": "CONNECTED_REAL_DATA",
+    "processing_status": "READY_FOR_GEOSPATIAL_PIPELINE",
+    "files": [
+      "data/mars/raw/MOLA/jezero_dem_1024.tif",
+      "data/mars/raw/MOLA/jezero_slope.tif",
+      "data/mars/raw/MOLA/jezero_roughness.tif",
+      "data/mars/raw/MOLA/jezero_terrain_methodology.json"
+    ]
+  },
+  {
+    "id": "mars_crater_catalog",
+    "name": "Mars Crater Study Dataset",
+    "planet": "mars",
+    "instrument": "MGS MOLA topography + Mars Odyssey THEMIS IR + Viking MDIM",
+    "features": [
+      "Crater Coordinates",
+      "Diameter",
+      "Depth",
+      "Morphology"
+    ],
+    "unit": "km (diameter), m (depth)",
+    "resolution": "Global catalog",
+    "provenance": "REAL_DERIVED",
+    "license": "Other (USGS Open Science Data)",
+    "original_source": "Robbins & Hynek (2012) Global Mars Impact Crater Database (USGS / NASA PDS), 378,540 craters >= 1 km",
+    "availability": "CONNECTED_REAL_DATA",
+    "processing_status": "READY_FOR_GEOSPATIAL_PIPELINE",
+    "files": [
+      "data/mars/raw/Geology/Mars Crater info.csv"
+    ]
+  },
+  {
+    "id": "earth_srtm_dem",
+    "name": "Smoothed Digital Elevation Model (DEM)",
+    "planet": "earth",
+    "instrument": "Space Shuttle Endeavour STS-99 SRTM C-band Radar",
+    "features": [
+      "Elevation"
+    ],
+    "unit": "m",
+    "resolution": "1 arc-second (~30 m)",
+    "provenance": "REAL_DERIVED",
+    "license": "NASA/USGS Public Domain",
+    "original_source": "NASA Shuttle Radar Topography Mission (SRTM) 1 Arc-Second Global Elevation (USGS EROS)",
+    "availability": "CONNECTED_REAL_DATA",
+    "processing_status": "READY_FOR_GEOSPATIAL_PIPELINE",
+    "files": [
+      "data/earth/raw/dem_s_1s_clip.tif",
+      "data/earth/raw/dem_s_1s_clip.tfw",
+      "data/earth/raw/dem_s_1s_clip.tif.ovr"
+    ]
+  },
+  {
+    "id": "earth_modis_lst_srtm",
+    "name": "MODIS LST & SRTM DEM Dataset",
+    "planet": "earth",
+    "instrument": "Terra/Aqua MODIS Thermal Radiometer + SRTM Radar",
+    "features": [
+      "Day LST",
+      "Night LST",
+      "Elevation"
+    ],
+    "unit": "Celsius / Kelvin (temperature), m (elevation)",
+    "resolution": "1 km LST / 90 m SRTM",
+    "provenance": "REAL_OBSERVATIONAL",
+    "license": "CC BY 4.0",
+    "original_source": "NASA EOSDIS Terra/Aqua MODIS Land Surface Temperature (MOD11A1/MYD11A1) + SRTM Topography",
+    "availability": "CONNECTED_REAL_DATA",
+    "processing_status": "READY_FOR_GEOSPATIAL_PIPELINE",
+    "files": [
+      "data/earth/raw/dataset_v3.csv"
+    ]
+  },
+  {
+    "id": "earth_worldclim_global",
+    "name": "Global BioClimatic Climate & Elevation Dataset",
+    "planet": "earth",
+    "instrument": "Global Historical Climatology Network (GHCN) + Satellite Remote Sensing",
+    "features": [
+      "Annual Mean Temperature (bio1)",
+      "Diurnal Range (bio2)",
+      "Precipitation (bio12)",
+      "Elevation"
+    ],
+    "unit": "\u00b0C (temperature), mm (precipitation), m (elevation)",
+    "resolution": "30 arc-seconds (~1 km)",
+    "provenance": "REAL_DERIVED",
+    "license": "CC BY 4.0",
+    "original_source": "WorldClim v2.1 Global Climate Grids (Fick & Hijmans, 2017) + SRTM elevation across 92,617 worldwide coordinates",
+    "availability": "CONNECTED_REAL_DATA",
+    "processing_status": "READY_FOR_GEOSPATIAL_PIPELINE",
+    "files": [
+      "data/earth/raw/Riched Carnivorous Plant.csv"
+    ]
+  },
+  {
+    "id": "moon_diviner_global_temperature",
+    "name": "LRO Temperature",
+    "planet": "moon",
+    "instrument": "NASA LRO Diviner Lunar Radiometer Experiment (DLRE)",
+    "features": [
+      "Surface Temperature (K)"
+    ],
+    "unit": "Unknown",
+    "resolution": "N/A",
+    "provenance": "UNAVAILABLE_ON_KAGGLE",
+    "license": "NASA Public Domain",
+    "original_source": "NASA PDS Geosciences Node (https://pds-geosciences.wustl.edu/missions/lro/diviner.htm)",
+    "availability": "UNAVAILABLE_ON_KAGGLE",
+    "processing_status": "NOT_CONNECTED_NO_FAKE_DATA",
+    "reason": "No validated full numerical raster of LRO Diviner surface temperatures is hosted on Kaggle. Fake formula or synthetic generation strictly prohibited.",
+    "files": []
+  },
+  {
+    "id": "moon_lend_hydrogen_neutron",
+    "name": "LRO Neutron_Hydrogen",
+    "planet": "moon",
+    "instrument": "NASA LRO Lunar Exploration Neutron Detector (LEND)",
+    "features": [
+      "Epithermal Neutron Flux (counts/s)"
+    ],
+    "unit": "Unknown",
+    "resolution": "N/A",
+    "provenance": "UNAVAILABLE_ON_KAGGLE",
+    "license": "NASA Public Domain",
+    "original_source": "NASA PDS Geosciences Node LEND archive",
+    "availability": "UNAVAILABLE_ON_KAGGLE",
+    "processing_status": "NOT_CONNECTED_NO_FAKE_DATA",
+    "reason": "No validated LEND neutron flux counts dataset is hosted on Kaggle. Fake hydrogen measurements strictly prohibited.",
+    "files": []
+  },
+  {
+    "id": "moon_crater_radiation",
+    "name": "LRO Radiation",
+    "planet": "moon",
+    "instrument": "NASA LRO Cosmic Ray Telescope for the Effects of Radiation (CRaTER)",
+    "features": [
+      "Radiation Dose Rate"
+    ],
+    "unit": "Unknown",
+    "resolution": "N/A",
+    "provenance": "UNAVAILABLE_ON_KAGGLE",
+    "license": "NASA Public Domain",
+    "original_source": "NASA PDS CRaTER archive",
+    "availability": "UNAVAILABLE_ON_KAGGLE",
+    "processing_status": "NOT_CONNECTED_NO_FAKE_DATA",
+    "reason": "No validated CRaTER calibrated dose map is hosted on Kaggle.",
+    "files": []
+  },
+  {
+    "id": "moon_psr_illumination",
+    "name": "LRO Illumination_PSR",
+    "planet": "moon",
+    "instrument": "LRO LOLA/LROC Polar Illumination & Shadow Products",
+    "features": [
+      "Sunlight Fraction & Permanent Shadow Mask"
+    ],
+    "unit": "Unknown",
+    "resolution": "N/A",
+    "provenance": "UNAVAILABLE_ON_KAGGLE",
+    "license": "NASA Public Domain",
+    "original_source": "NASA PDS LRO Archive",
+    "availability": "UNAVAILABLE_ON_KAGGLE",
+    "processing_status": "NOT_CONNECTED_NO_FAKE_DATA",
+    "reason": "No standalone global PSR mask is hosted as a clean validated product on Kaggle.",
+    "files": []
+  }
+]

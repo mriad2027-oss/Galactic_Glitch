@@ -1,0 +1,198 @@
+[
+  {
+    "dataset_id": "moon_lola_20m",
+    "kaggle_handle": "alexhhhh0938/lunar-nac-real-context",
+    "title": "NASA Lunar LOLA and LROC NAC Real Context",
+    "planet": "moon",
+    "category": "LOLA",
+    "provenance": "REAL_DERIVED",
+    "license": "CC0: Public Domain",
+    "original_source": "NASA Goddard Space Flight Center (GSFC) Planetary Geodynamics Laboratory / LOLA Science Team (https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_20MPP_ADJ.TIF)",
+    "download_date": "2026-11-13T23:35:57.831044+00:00",
+    "status": "COMPLETED",
+    "files": [
+      {
+        "relative_path": "data/moon/raw/LOLA/lunar20_nac_common.tif",
+        "filename": "lunar20_nac_common.tif",
+        "bytes": 25443480,
+        "sha256": "eccaa4a8447b5c14208623621c069f1fa7e5482f1f80c7b1b26e291aaa4fdabe"
+      },
+      {
+        "relative_path": "data/moon/raw/LOLA/lunar20_nac_common.tif.json",
+        "filename": "lunar20_nac_common.tif.json",
+        "bytes": 2465,
+        "sha256": "d94fb6995c9c91fb6e3a091bdddddf6a856534b97fc7162d8afb0dafff7475b3"
+      }
+    ]
+  },
+  {
+    "dataset_id": "moon_southpole_finetune",
+    "kaggle_handle": "encinas88/lunarsite-southpole-finetune",
+    "title": "LunarSite South Pole Crater Fine-Tuning HDF5",
+    "planet": "moon",
+    "category": "LOLA",
+    "provenance": "REAL_DERIVED",
+    "license": "CC0: Public Domain",
+    "original_source": "NASA LRO LOLA South Pole 118m/pixel Polar Stereographic DEM tiles (LDEM_80S_118M) + Robbins Lunar Crater Database",
+    "download_date": "2026-11-13T23:35:58.969517+00:00",
+    "status": "COMPLETED",
+    "files": [
+      {
+        "relative_path": "data/moon/raw/LOLA/southpole_finetune_118mpp.hdf5",
+        "filename": "southpole_finetune_118mpp.hdf5",
+        "bytes": 10947750,
+        "sha256": "2529456b4ce44a7b1266c6607d875d9c36183965fb3f643cef1997311b49ddae"
+      }
+    ]
+  },
+  {
+    "dataset_id": "moon_m3_mineralogy",
+    "kaggle_handle": "yash92328/lunar-water-discovery",
+    "title": "Lunar Water Discovery using Chandrayaan Data",
+    "planet": "moon",
+    "category": "M3",
+    "provenance": "REAL_OBSERVATIONAL",
+    "license": "CC0: Public Domain",
+    "original_source": "ISRO / NASA Chandrayaan-1 Moon Mineralogy Mapper (M3) calibrated spectral reflectance cube of Bullialdus Crater",
+    "download_date": "2026-11-13T23:36:00.470399+00:00",
+    "status": "COMPLETED",
+    "files": [
+      {
+        "relative_path": "data/moon/raw/M3/Bullialdus_m3_tiff.tif",
+        "filename": "Bullialdus_m3_tiff.tif",
+        "bytes": 46326494,
+        "sha256": "74f617361def39c12133f7dc3a2c8f85f7c3a01349c9ee75cd01874057755a68"
+      }
+    ]
+  },
+  {
+    "dataset_id": "mars_jezero_terrain",
+    "kaggle_handle": "olekis/mars-terrain-ai-jezero-hazard-and-routing-data",
+    "title": "Mars Terrain AI | Jezero Hazard & Routing Data",
+    "planet": "mars",
+    "category": "MOLA",
+    "provenance": "REAL_DERIVED",
+    "license": "Unknown (NASA/USGS Open Data derived)",
+    "original_source": "NASA/USGS Mars Reconnaissance Orbiter (MRO) HiRISE Digital Terrain Model (DTM) aligned with MGS MOLA elevation datum",
+    "download_date": "2026-11-13T23:36:01.924898+00:00",
+    "status": "COMPLETED",
+    "files": [
+      {
+        "relative_path": "data/mars/raw/MOLA/jezero_dem_1024.tif",
+        "filename": "jezero_dem_1024.tif",
+        "bytes": 2223272,
+        "sha256": "6a9a3dffe0881311b8756d631d054f728ed81c223f94e3a838d1b5bc5e70ccb0"
+      },
+      {
+        "relative_path": "data/mars/raw/MOLA/jezero_slope.tif",
+        "filename": "jezero_slope.tif",
+        "bytes": 3742199,
+        "sha256": "09bcb24cf01edac433170ccdc64d72df4d7d61365ab3257e48562240ef0eea95"
+      },
+      {
+        "relative_path": "data/mars/raw/MOLA/jezero_roughness.tif",
+        "filename": "jezero_roughness.tif",
+        "bytes": 3694913,
+        "sha256": "60b0238a797229d9c49d549a960693da8534ba54a1c2bb6e74d971e3f09cc985"
+      },
+      {
+        "relative_path": "data/mars/raw/MOLA/jezero_terrain_methodology.json",
+        "filename": "jezero_terrain_methodology.json",
+        "bytes": 550,
+        "sha256": "9693806acd4f5f0998a27c8f5c304e0f5f2fd0efcfdd309a92b1659bbe971791"
+      }
+    ]
+  },
+  {
+    "dataset_id": "mars_crater_catalog",
+    "kaggle_handle": "codebreaker619/mars-crater-study-dataset",
+    "title": "Mars Crater Study Dataset",
+    "planet": "mars",
+    "category": "Geology",
+    "provenance": "REAL_DERIVED",
+    "license": "Other (USGS Open Science Data)",
+    "original_source": "Robbins & Hynek (2012) Global Mars Impact Crater Database (USGS / NASA PDS), 378,540 craters >= 1 km",
+    "download_date": "2026-11-13T23:36:03.345809+00:00",
+    "status": "COMPLETED",
+    "files": [
+      {
+        "relative_path": "data/mars/raw/Geology/Mars Crater info.csv",
+        "filename": "Mars Crater info.csv",
+        "bytes": 16816459,
+        "sha256": "25899490c6982717831112bdf285c4a48ca10858eeefc4d13becc18ba4943664"
+      }
+    ]
+  },
+  {
+    "dataset_id": "earth_srtm_dem",
+    "kaggle_handle": "dwarika/smoothed-digital-elevation-model-dem",
+    "title": "Smoothed Digital Elevation Model (DEM)",
+    "planet": "earth",
+    "category": "Elevation",
+    "provenance": "REAL_DERIVED",
+    "license": "NASA/USGS Public Domain",
+    "original_source": "NASA Shuttle Radar Topography Mission (SRTM) 1 Arc-Second Global Elevation (USGS EROS)",
+    "download_date": "2026-11-13T23:36:04.783771+00:00",
+    "status": "COMPLETED",
+    "files": [
+      {
+        "relative_path": "data/earth/raw/dem_s_1s_clip.tif",
+        "filename": "dem_s_1s_clip.tif",
+        "bytes": 13633666,
+        "sha256": "eaae84db1e68150fa3267613a6fdc1de3644df5b35d86156346b939536aa8a1c"
+      },
+      {
+        "relative_path": "data/earth/raw/dem_s_1s_clip.tfw",
+        "filename": "dem_s_1s_clip.tfw",
+        "bytes": 83,
+        "sha256": "d400f21f036bc7a58a9d1aa06f375837a9962a665a52bcafadfe8ac5251f0985"
+      },
+      {
+        "relative_path": "data/earth/raw/dem_s_1s_clip.tif.ovr",
+        "filename": "dem_s_1s_clip.tif.ovr",
+        "bytes": 4364159,
+        "sha256": "01746a9fa911df90a0414f92691f6fa0123518a4c620f36cef0a9ca4dad5811a"
+      }
+    ]
+  },
+  {
+    "dataset_id": "earth_modis_lst_srtm",
+    "kaggle_handle": "umutalkn/modis-lst-and-dem-marmara",
+    "title": "MODIS LST & SRTM DEM Dataset",
+    "planet": "earth",
+    "category": "Temperature_Elevation",
+    "provenance": "REAL_OBSERVATIONAL",
+    "license": "CC BY 4.0",
+    "original_source": "NASA EOSDIS Terra/Aqua MODIS Land Surface Temperature (MOD11A1/MYD11A1) + SRTM Topography",
+    "download_date": "2026-11-13T23:36:05.810033+00:00",
+    "status": "COMPLETED",
+    "files": [
+      {
+        "relative_path": "data/earth/raw/dataset_v3.csv",
+        "filename": "dataset_v3.csv",
+        "bytes": 4212852,
+        "sha256": "2282dcd04a1129ca59e1107b2ce192e1b6fd721e3c05f036233916241188677d"
+      }
+    ]
+  },
+  {
+    "dataset_id": "earth_worldclim_global",
+    "kaggle_handle": "erickfhernandezp/global-carnivorous-plants-with-climate-data",
+    "title": "Global BioClimatic Climate & Elevation Dataset",
+    "planet": "earth",
+    "category": "Global_Climate",
+    "provenance": "REAL_DERIVED",
+    "license": "CC BY 4.0",
+    "original_source": "WorldClim v2.1 Global Climate Grids (Fick & Hijmans, 2017) + SRTM elevation across 92,617 worldwide coordinates",
+    "download_date": "2026-11-13T23:36:06.957812+00:00",
+    "status": "COMPLETED",
+    "files": [
+      {
+        "relative_path": "data/earth/raw/Riched Carnivorous Plant.csv",
+        "filename": "Riched Carnivorous Plant.csv",
+        "bytes": 34604293,
+        "sha256": "0f708c560a741de0d8efb38e5770a2db9d10f839a671e0210bd9000f25f78b41"
+      }
+    ]
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "project": "Mars Terrain AI",
+  "version": "0.2",
+  "source": "NASA/USGS HiRISE DEM",
+  "crs": "ESRI:103885",
+  "pixel_size_m": [
+    1.0,
+    1.0
+  ],
+  "dem_shape": [
+    1024,
+    1024
+  ],
+  "slope_smoothing_sigma_pixels": 1.0,
+  "roughness_sigma_m": 5.0,
+  "hazard_weights": {
+    "slope": 0.65,
+    "roughness": 0.35
+  },
+  "normalization": "5th to 95th percentile",
+  "hazard_class_boundaries": [
+    0.33,
+    0.66
+  ],
+  "warning": "Experimental relative terrain difficulty index. Not a validated rover safety or traversability model."
+}

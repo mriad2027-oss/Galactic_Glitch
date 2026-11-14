@@ -1,0 +1,893 @@
+/* ================================================================
+   GALACTIC GLITCH — Cinematic Space UI  (style.css)
+   Design: Dark cosmic immersive, inspired by Galaxy VR aesthetic
+   ================================================================ */
+
+/* ---------- CSS Variables ---------- */
+:root {
+  color-scheme: dark;
+  --bg:    #04060f;
+  --bg2:   #080d1a;
+  --p:     #0a1020;
+  --p2:    #0f1930;
+  --bd:    #1b2a4a;
+  --bd2:   #243550;
+  --tx:    #e8f0ff;
+  --mu:    #7a93c0;
+  --cy:    #35c4e8;
+  --cy2:   #0ea5c9;
+  --vi:    #9b7cf6;
+  --vi2:   #7c3aed;
+  --gn:    #5fd39a;
+  --wn:    #e8b74a;
+  --rd:    #e05050;
+  --hero-h: 100vh;
+  --nav-h:  60px;
+  box-sizing: border-box;
+}
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  overflow-x: hidden;
+}
+
+body.cinematic {
+  background: var(--bg);
+  color: var(--tx);
+  font: 13px/1.5 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ================================================================
+   TOP NAVIGATION BAR
+   ================================================================ */
+#topnav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 20px;
+  background: rgba(4, 6, 15, 0.82);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid rgba(53, 196, 232, 0.12);
+  box-shadow: 0 1px 40px rgba(0,0,0,0.5);
+}
+
+/* Logo */
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0; cursor: pointer; text-decoration: none;
+}
+.logo-icon {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--cy2), var(--vi2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; color: #fff;
+  box-shadow: 0 0 16px rgba(53,196,232,0.5);
+}
+.logo-text {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .18em;
+  color: var(--tx);
+  white-space: nowrap;
+}
+.logo-g { color: var(--cy); }
+
+/* Nav links */
+.nav-links {
+  display: flex; align-items: center; gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+.navl {
+  color: var(--mu);
+  text-decoration: none;
+  padding: 6px 13px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  transition: color .2s, background .2s;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.navl:hover { color: var(--tx); background: rgba(255,255,255,.06); }
+.navl.on {
+  color: var(--cy);
+  background: rgba(53,196,232,.1);
+  border-color: rgba(53,196,232,.25);
+}
+
+/* Nav right */
+.nav-right {
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+.nav-settings-btn {
+  color: var(--mu);
+  text-decoration: none;
+  padding: 5px 12px;
+  border: 1px solid var(--bd);
+  border-radius: 20px;
+  font-size: 12px;
+  transition: color .2s, border-color .2s;
+  white-space: nowrap;
+}
+.nav-settings-btn:hover { color: var(--cy); border-color: var(--cy); }
+
+.hamburger {
+  display: none;
+  background: none;
+  border: 1px solid var(--bd);
+  color: var(--tx);
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color .2s;
+}
+.hamburger:hover { border-color: var(--cy); }
+
+/* ================================================================
+   MOBILE DRAWER
+   ================================================================ */
+.nav-drawer {
+  position: fixed;
+  top: 0; left: -280px;
+  width: 270px; height: 100vh;
+  z-index: 200;
+  background: var(--p);
+  border-right: 1px solid var(--bd);
+  display: flex; flex-direction: column;
+  padding: 16px;
+  transition: left .28s cubic-bezier(.4,0,.2,1);
+  gap: 4px;
+}
+.nav-drawer.open { left: 0; }
+.drawer-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--bd);
+}
+.nav-drawer-logo { font-size: 11px; }
+.drawer-close {
+  background: none; border: 1px solid var(--bd); color: var(--tx);
+  border-radius: 4px; padding: 3px 8px; cursor: pointer; font-size: 13px;
+}
+.drawer-links { display: flex; flex-direction: column; gap: 2px; }
+.drawer-links a {
+  color: var(--mu); text-decoration: none;
+  padding: 10px 12px; border-radius: 6px;
+  font-size: 13px; font-weight: 500;
+  border-left: 2px solid transparent;
+  transition: color .15s, background .15s, border-color .15s;
+}
+.drawer-links a:hover { color: var(--tx); background: var(--p2); }
+.drawer-links a.on { color: var(--tx); background: var(--p2); border-left-color: var(--cy); }
+.drawer-status {
+  margin-top: auto; padding-top: 12px;
+  border-top: 1px solid var(--bd);
+  font-size: 11px; color: var(--mu);
+}
+.nav-overlay {
+  display: none; position: fixed; inset: 0; z-index: 190;
+  background: rgba(0,0,0,.55); backdrop-filter: blur(2px);
+}
+.nav-overlay.show { display: block; }
+
+/* ================================================================
+   MAIN CONTENT AREA
+   ================================================================ */
+#main {
+  flex: 1;
+  margin-top: var(--nav-h);
+  overflow-x: hidden;
+}
+
+/* ================================================================
+   HERO / OVERVIEW PAGE
+   ================================================================ */
+.hero-wrap {
+  position: relative;
+  min-height: calc(100vh - var(--nav-h));
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #04060f 0%, #0c0620 40%, #04060f 100%);
+}
+
+/* Animated starfield canvas behind hero */
+.hero-stars {
+  position: absolute; inset: 0; z-index: 0;
+}
+
+/* Cosmic glow blobs */
+.hero-wrap::before {
+  content: '';
+  position: absolute;
+  top: -10%; left: -5%;
+  width: 60%; height: 80%;
+  background: radial-gradient(ellipse, rgba(107,67,210,.18) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+.hero-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: -10%; right: 0;
+  width: 50%; height: 60%;
+  background: radial-gradient(ellipse, rgba(53,196,232,.12) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+
+/* Hero Earth planet — right side */
+.hero-planet {
+  position: absolute;
+  right: -60px; bottom: -40px;
+  width: 55vw; max-width: 700px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,.14) 0%, transparent 50%),
+    url('../assets/textures/earth.jpg') center/cover;
+  box-shadow:
+    inset -40px -30px 80px rgba(0,0,30,.8),
+    0 0 80px rgba(53,196,232,.35),
+    0 0 160px rgba(53,196,232,.2),
+    0 0 300px rgba(107,67,210,.18);
+  animation: float 8s ease-in-out infinite;
+  z-index: 1; opacity: .96;
+}
+.hero-planet canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-18px) rotate(1.5deg); }
+}
+
+/* Floating astronaut visual in space background */
+.hero-astronaut {
+  position: absolute;
+  left: 32%;
+  top: 14%;
+  width: 260px;
+  height: 340px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .85;
+  animation: astronautDrift 14s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 25px rgba(53,196,232,0.35));
+}
+@keyframes astronautDrift {
+  0%   { transform: translate(0, 0) rotate(-6deg); }
+  50%  { transform: translate(18px, -24px) rotate(-1deg); }
+  100% { transform: translate(-14px, 12px) rotate(-10deg); }
+}
+
+/* Hero text content */
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 580px;
+  padding: 60px 60px 60px 7vw;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600;
+  color: var(--cy); letter-spacing: .15em; text-transform: uppercase;
+  margin-bottom: 20px;
+  padding: 5px 14px;
+  border: 1px solid rgba(53,196,232,.3);
+  border-radius: 20px;
+  background: rgba(53,196,232,.06);
+}
+.hero-eyebrow::before { content: '◈'; font-size: 8px; }
+
+.hero-h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(28px, 4.5vw, 56px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0 0 20px;
+  letter-spacing: -.01em;
+  background: linear-gradient(135deg, #fff 0%, var(--cy) 50%, var(--vi) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 14px; color: var(--mu); line-height: 1.65;
+  margin: 0 0 36px;
+  max-width: 440px;
+}
+
+.hero-cta {
+  display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
+}
+.btn-hero-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px;
+  font: 600 13px 'Inter', sans-serif;
+  color: #fff;
+  background: linear-gradient(135deg, var(--cy2), var(--vi2));
+  border: none;
+  border-radius: 28px;
+  cursor: pointer;
+  letter-spacing: .04em;
+  box-shadow: 0 4px 32px rgba(53,196,232,.35);
+  transition: transform .2s, box-shadow .2s;
+  text-decoration: none;
+}
+.btn-hero-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(53,196,232,.5);
+}
+.btn-hero-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 24px;
+  font: 600 13px 'Inter', sans-serif;
+  color: var(--tx);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 28px;
+  cursor: pointer;
+  letter-spacing: .04em;
+  transition: border-color .2s, background .2s;
+  text-decoration: none;
+}
+.btn-hero-ghost:hover {
+  border-color: rgba(255,255,255,.4);
+  background: rgba(255,255,255,.08);
+}
+.btn-play-icon {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; margin-left: -6px;
+}
+
+/* Hero stats row */
+.hero-stats {
+  display: flex; gap: 32px; margin-top: 50px; flex-wrap: wrap;
+}
+.hero-stat { display: flex; flex-direction: column; gap: 2px; }
+.hero-stat .num {
+  font-family: 'Orbitron', monospace;
+  font-size: 22px; font-weight: 700; color: var(--cy);
+}
+.hero-stat .lbl { font-size: 10.5px; color: var(--mu); letter-spacing: .05em; text-transform: uppercase; }
+
+/* ----------------------------------------------------------------
+   FEATURES STRIP
+   ---------------------------------------------------------------- */
+.features-strip {
+  padding: 70px 7vw;
+  background: linear-gradient(180deg, transparent 0%, rgba(11,19,40,.6) 50%, transparent 100%);
+  position: relative;
+}
+.features-strip::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bd2), transparent);
+}
+.fs-label {
+  font-size: 11px; color: var(--cy); letter-spacing: .15em;
+  text-transform: uppercase; font-weight: 600; margin-bottom: 12px;
+}
+.fs-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 800; color: var(--tx);
+  margin: 0 0 44px;
+}
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+.feature-card {
+  background: linear-gradient(135deg, var(--p2) 0%, rgba(10,16,32,.9) 100%);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: 24px 20px;
+  cursor: pointer;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cy), var(--vi));
+  opacity: 0;
+  transition: opacity .25s;
+}
+.feature-card:hover {
+  border-color: rgba(53,196,232,.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.35), 0 0 30px rgba(53,196,232,.08);
+}
+.feature-card:hover::before { opacity: 1; }
+
+.fc-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+.fc-icon.cyan  { background: rgba(53,196,232,.12); border: 1px solid rgba(53,196,232,.2); }
+.fc-icon.violet{ background: rgba(155,124,246,.12); border: 1px solid rgba(155,124,246,.2); }
+.fc-icon.green { background: rgba(95,211,154,.12);  border: 1px solid rgba(95,211,154,.2);  }
+.fc-icon.amber { background: rgba(232,183,74,.12);  border: 1px solid rgba(232,183,74,.2);  }
+
+.fc-title { font-weight: 700; font-size: 14px; margin-bottom: 6px; color: var(--tx); }
+.fc-desc  { font-size: 11.5px; color: var(--mu); line-height: 1.6; }
+.fc-cta   {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 14px; font-size: 11.5px; font-weight: 600;
+  color: var(--cy); text-decoration: none;
+  transition: gap .2s;
+}
+.fc-cta:hover { gap: 10px; }
+
+/* ----------------------------------------------------------------
+   SHOWCASE SECTION (Galaxy VR 2-Column Cyber Layout)
+   ---------------------------------------------------------------- */
+.showcase-section {
+  padding: 80px 7vw 90px;
+  position: relative;
+  background: radial-gradient(circle at 78% 45%, rgba(107,67,210,.18) 0%, rgba(53,196,232,.06) 35%, rgba(4,6,15,1) 75%);
+  border-top: 1px solid var(--bd);
+  border-bottom: 1px solid var(--bd);
+  overflow: hidden;
+}
+.showcase-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  align-items: center;
+  max-width: 1220px;
+  margin: 0 auto;
+}
+.showcase-left {
+  position: relative; z-index: 2;
+}
+.showcase-h2 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(24px, 3.2vw, 42px);
+  font-weight: 800;
+  line-height: 1.18;
+  color: #fff;
+  margin: 0 0 18px;
+  letter-spacing: -.01em;
+}
+.showcase-desc {
+  font-size: 13.5px;
+  color: #d2e0f5;
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+.showcase-sub {
+  font-size: 12px;
+  color: var(--mu);
+  line-height: 1.65;
+  margin: 0 0 26px;
+}
+
+/* Cyber Holographic Podium */
+.showcase-right {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+  z-index: 2;
+}
+.holo-stage {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Outer concentric orbit rings */
+.holo-ring-outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px dashed rgba(53, 196, 232, 0.35);
+  box-shadow: 0 0 35px rgba(53, 196, 232, 0.15);
+  animation: ringSpin 35s linear infinite;
+}
+.holo-ring-inner {
+  position: absolute;
+  inset: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(155, 124, 246, 0.35);
+  box-shadow: inset 0 0 20px rgba(155, 124, 246, 0.12);
+  animation: ringSpinRev 25s linear infinite;
+}
+@keyframes ringSpin { 100% { transform: rotate(360deg); } }
+@keyframes ringSpinRev { 100% { transform: rotate(-360deg); } }
+
+/* Hologram Orb */
+.holo-orb {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 3;
+  background-size: cover;
+  background-position: center;
+  box-shadow:
+    inset -18px -14px 30px rgba(0,0,20,.75),
+    0 0 45px rgba(53, 196, 232, 0.4),
+    0 0 90px rgba(107, 67, 210, 0.25);
+  animation: holoPulse 4s ease-in-out infinite alternate;
+  transition: background-image 0.4s ease;
+}
+@keyframes holoPulse {
+  0% { transform: translateY(0) scale(1); filter: brightness(1); }
+  100% { transform: translateY(-8px) scale(1.03); filter: brightness(1.12); }
+}
+
+/* Hologram Pedestal / Platform */
+.holo-pedestal {
+  position: absolute;
+  bottom: 12px;
+  width: 240px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(53,196,232,0.45) 0%, rgba(107,67,210,0.2) 55%, transparent 75%);
+  box-shadow: 0 0 30px rgba(53,196,232,0.4);
+  z-index: 1;
+}
+.holo-pedestal::after {
+  content: '';
+  position: absolute;
+  top: 18px; left: 20px; right: 20px; bottom: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(53,196,232,0.6);
+  box-shadow: 0 0 15px rgba(53,196,232,0.6);
+}
+
+/* Hologram World Switcher Tabs */
+.holo-tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  z-index: 4;
+}
+.holo-tab-btn {
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 14px;
+  border: 1px solid var(--bd2);
+  background: rgba(15,25,48,.8);
+  color: var(--mu);
+  cursor: pointer;
+  transition: all .2s;
+}
+.holo-tab-btn:hover { color: var(--tx); border-color: var(--cy); }
+.holo-tab-btn.active {
+  background: rgba(53,196,232,.18);
+  border-color: var(--cy);
+  color: var(--cy);
+  box-shadow: 0 0 12px rgba(53,196,232,.3);
+}
+
+/* ----------------------------------------------------------------
+   3D EXPLORER FULL CONTAINER
+   ---------------------------------------------------------------- */
+.ex-container {
+  padding: 16px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--nav-h));
+  box-sizing: border-box;
+  overflow: hidden;
+  gap: 10px;
+}
+.ex-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.ex-container .ex {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+/* ----------------------------------------------------------------
+   INNER PAGE WRAPPER (all non-overview pages)
+   ---------------------------------------------------------------- */
+.page-wrap {
+  padding: 36px 5vw 48px;
+  min-height: calc(100vh - var(--nav-h));
+}
+
+/* ================================================================
+   HEADINGS
+   ================================================================ */
+h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 800; letter-spacing: .05em;
+  margin: 0 0 4px;
+  background: linear-gradient(135deg, var(--tx) 0%, var(--cy) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+h2 {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .12em;
+  color: var(--mu); margin: 20px 0 8px; font-weight: 600;
+}
+h3 { margin: 0 0 6px; font-size: 14px; font-weight: 700; }
+.sub { color: var(--mu); margin: 0 0 20px; font-size: 12.5px; line-height: 1.6; }
+
+/* ================================================================
+   CARDS
+   ================================================================ */
+.card {
+  background: linear-gradient(135deg, var(--p) 0%, rgba(10,16,32,.95) 100%);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: border-color .2s;
+}
+.card h3 { font-size: 14px; }
+
+/* ================================================================
+   GRID
+   ================================================================ */
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+
+/* ================================================================
+   BUTTONS  (compact)
+   ================================================================ */
+button, select, input[type=search], input[type=range] {
+  font: inherit;
+  color: var(--tx);
+  background: var(--p2);
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.3;
+  transition: border-color .15s, background .15s;
+}
+button { cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+button:hover:not(:disabled) { border-color: var(--cy); background: rgba(53,196,232,.07); }
+button:disabled { opacity: .4; cursor: not-allowed; }
+button.pri { background: rgba(14,74,96,.8); border-color: var(--cy); color: #d8f5ff; }
+button.pri:hover:not(:disabled) { background: rgba(20,98,127,.8); }
+button.on  { border-color: var(--cy); color: var(--cy); background: rgba(53,196,232,.08); }
+.btn-sm    { padding: 3px 8px; font-size: 11px; border-radius: 4px; }
+.btn-pill  { border-radius: 14px; padding: 3px 10px; font-size: 11px; }
+
+/* ================================================================
+   TAGS & BADGES
+   ================================================================ */
+.tag { font-size: 10.5px; padding: 2px 8px; border: 1px solid var(--bd); border-radius: 4px; color: var(--mu); }
+.tag.demo { color: var(--wn); border-color: #5a4720; }
+.tag.ok   { color: var(--gn); border-color: #1f4d3a; }
+.match-badge {
+  font-size: 11px; font-weight: 700; padding: 2px 9px;
+  border-radius: 12px; background: rgba(13,61,52,.8);
+  border: 1px solid var(--gn); color: var(--gn);
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.acc-banner {
+  background: linear-gradient(90deg, rgba(11,35,62,.9), rgba(12,27,51,.9));
+  border: 1px solid rgba(31,73,122,.8);
+  border-radius: 10px; padding: 12px 16px; margin: 10px 0;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px;
+}
+.acc-banner .score { font-size: 18px; font-weight: 800; color: var(--cy); font-family: 'Orbitron', monospace; }
+
+/* ================================================================
+   CALLOUT BLOCKS  (analog analysis)
+   ================================================================ */
+.callout {
+  border-left: 3px solid var(--cy);
+  background: rgba(15,25,48,.7);
+  border-radius: 0 6px 6px 0;
+  padding: 8px 12px; margin: 6px 0;
+  font-size: 12px; line-height: 1.5;
+}
+.callout.break { border-left-color: var(--wn); }
+.callout.use   { border-left-color: var(--gn); }
+.callout b { display: block; margin-bottom: 3px; font-size: 10px; text-transform: uppercase; letter-spacing: .07em; opacity: .75; }
+
+/* ================================================================
+   DIM GRID  (dimension comparison)
+   ================================================================ */
+.dim-grid { display: grid; gap: 5px; margin: 8px 0; }
+.dim-item {
+  background: rgba(15,25,48,.7); border: 1px solid var(--bd);
+  border-radius: 6px; padding: 7px 10px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.dim-item b { font-size: 12px; }
+
+/* ================================================================
+   STAT GRID
+   ================================================================ */
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin: 10px 0; }
+.stat-box {
+  background: rgba(15,25,48,.8); border: 1px solid var(--bd);
+  border-radius: 6px; padding: 8px 10px;
+}
+.stat-box .lbl { font-size: 10px; color: var(--mu); text-transform: uppercase; letter-spacing: .06em; }
+.stat-box .val { font-size: 14px; font-weight: 700; color: var(--tx); margin-top: 2px; }
+
+/* ================================================================
+   RANK CARDS (analog list)
+   ================================================================ */
+.rank {
+  display: flex; gap: 10px; padding: 9px 12px;
+  border: 1px solid var(--bd); border-radius: 7px;
+  cursor: pointer; margin-bottom: 6px; align-items: center;
+  transition: border-color .15s, background .15s;
+  background: rgba(10,16,32,.7);
+}
+.rank:hover  { border-color: var(--cy); background: rgba(53,196,232,.04); }
+.rank.on     { border-color: var(--cy); background: rgba(53,196,232,.07); }
+
+/* ================================================================
+   PROGRESS BARS
+   ================================================================ */
+.m { height: 5px; background: rgba(255,255,255,.07); border-radius: 2px; overflow: hidden; margin: 2px 0; }
+.m i { display: block; height: 100%; border-radius: 2px; }
+.bar {
+  height: 6px; border-radius: 2px;
+  background: linear-gradient(90deg, #1b2a6b, #2d9cdb, var(--gn), var(--wn), #e0533d);
+}
+
+/* ================================================================
+   LAYER PANELS
+   ================================================================ */
+.lay { padding: 7px 0; border-bottom: 1px solid var(--bd); }
+.lay:last-child { border: 0; }
+.lay small, .mu { color: var(--mu); font-size: 11.5px; }
+
+/* ================================================================
+   TABLE
+   ================================================================ */
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--bd); font-size: 12px; }
+th { color: var(--mu); font-weight: 500; font-size: 11px; }
+.wrap { overflow-x: auto; }
+
+/* ================================================================
+   ALERTS
+   ================================================================ */
+.warn { color: var(--wn); font-size: 11.5px; }
+.err  { border-color: #7a2f2f !important; color: #f09a9a !important; }
+
+/* ================================================================
+   3D GLOBE (Explorer)
+   ================================================================ */
+.ex {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 12px;
+  height: calc(100vh - var(--nav-h) - 72px);
+  min-height: 480px;
+}
+#gl {
+  position: relative;
+  background: radial-gradient(ellipse at center, #0d1730 0%, #03060d 100%);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 320px;
+}
+#gl canvas { display: block; width: 100%; height: 100%; }
+.ov {
+  position: absolute; left: 12px; bottom: 12px;
+  font-size: 11px; color: var(--mu);
+  background: rgba(4,6,15,.8);
+  backdrop-filter: blur(6px);
+  padding: 4px 10px; border-radius: 4px;
+  border: 1px solid var(--bd);
+}
+.side { overflow: auto; display: flex; flex-direction: column; gap: 10px; }
+
+/* Globe controls */
+.gl-controls {
+  position: absolute; right: 12px; top: 12px;
+  display: flex; flex-direction: column; gap: 5px; z-index: 5;
+}
+.gl-btn {
+  width: 30px; height: 30px;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0; font-size: 12px; font-weight: 700;
+  background: rgba(4,6,15,.85); backdrop-filter: blur(8px);
+  border: 1px solid var(--bd); border-radius: 5px; color: var(--tx);
+  cursor: pointer; transition: border-color .15s, color .15s;
+}
+.gl-btn:hover { border-color: var(--cy); color: var(--cy); }
+.gl-hud {
+  position: absolute; left: 12px; bottom: 12px;
+  background: rgba(4,6,15,.88); backdrop-filter: blur(10px);
+  border: 1px solid var(--bd); border-radius: 7px;
+  padding: 7px 11px; font-size: 11.5px; color: var(--tx);
+  display: flex; flex-direction: column; gap: 2px;
+  z-index: 5; pointer-events: none;
+}
+.gl-hud b { color: var(--cy); }
+.gl-pin-lbl {
+  position: absolute; transform: translate(-50%,-100%);
+  padding: 2px 7px;
+  background: rgba(4,6,15,.9); border: 1px solid var(--cy);
+  border-radius: 3px; font-size: 10px; color: #fff;
+  white-space: nowrap; pointer-events: none; z-index: 6;
+}
+
+/* ================================================================
+   ORBS (planet selectors)
+   ================================================================ */
+.orb {
+  width: 48px; height: 48px; border-radius: 50%;
+  margin-bottom: 8px;
+  box-shadow: inset -8px -6px 14px rgba(0,0,0,.7);
+}
+
+/* ================================================================
+   UTILITY
+   ================================================================ */
+.row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+#toast {
+  position: fixed; right: 18px; bottom: 20px;
+  background: var(--p2); border: 1px solid var(--cy);
+  backdrop-filter: blur(10px);
+  padding: 8px 14px; border-radius: 7px;
+  display: none; z-index: 999; font-size: 12px;
+  box-shadow: 0 4px 24px rgba(53,196,232,.2);
+  animation: toastIn .2s ease;
+}
+@keyframes toastIn { from { transform: translateY(10px); opacity: 0; } }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .nav-settings-btn { display: none; }
+  .hamburger { display: flex; }
+  .hero-content { padding: 40px 24px; }
+  .hero-planet { width: 70vw; right: -20px; bottom: 0; opacity: .4; }
+  .hero-h1 { font-size: clamp(24px, 7vw, 38px); }
+  .features-strip { padding: 48px 24px; }
+  .ex { grid-template-columns: 1fr; height: auto; }
+  #gl { height: 55vh; }
+  .page-wrap { padding: 24px 20px 40px; }
+}
+@media (max-width: 540px) {
+  .hero-stats { gap: 20px; }
+  .hero-cta { flex-direction: column; align-items: flex-start; }
+}
