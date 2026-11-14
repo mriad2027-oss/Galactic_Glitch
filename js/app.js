@@ -1,5 +1,5 @@
 // ---------- Galactic Glitch: Configuration & State ----------
-const CFG={api:'https://bodies-edinburgh-builds-mit.trycloudflare.com/api/v1'};
+const CFG={api:'https://florist-anna-remarkable-tab.trycloudflare.com/api/v1'};
 const LS={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const S={
   planet:'moon',
@@ -1333,7 +1333,7 @@ async function runSearch(){
     showRes();
   }catch(e){
     S.res=null;r.innerHTML='';
-    r.append(h('div',{class:'card err'},'Backend error ('+esc(e.message)+'). Ensure FastAPI server is running on https://bodies-edinburgh-builds-mit.trycloudflare.com'));
+    r.append(h('div',{class:'card err'},'Backend error ('+esc(e.message)+'). Ensure FastAPI server is running on https://florist-anna-remarkable-tab.trycloudflare.com'));
   }
   if(b)b.disabled=false;
 }
